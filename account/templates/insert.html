@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    <form class="" method="POST" action="">{% csrf_token %}
+        <div class="columns is-centered">
+        <div class="column is-one-third">
+                
+            <div class="select">
+                
+                <select name="currency">
+                    
+                    <option selected disabled="true">اختيار  العملة</option>
+                    {% for item in currency %}
+                  <option value="{{item.id}}">{{item.name}}||{{item.code}}</option>
+                  {% endfor %}
+                </select>
+                
+              </div>
+              
+        </div>
+        <div class="columns is-centered">
+            <div class="column is-one-third">
+                <input class="input" type="text" placeholder="البيان او الملاحظات" Required name="note">
+            </div>
+
+            </div>
+            <div class="column is-one-third">
+                <div class="select">
+                    <select name="debitor">
+                        <option selected disabled="true">اختيار الحساب المدين</option>
+                        {% for item in account %}
+                      <option value="{{item.id}}">{{item.name}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+            </div>
+        </div>
+        
+        <div class="columns is-centered">
+            <div class="column is-one-third">
+                
+                <input class="input" type="text" placeholder="رقم المستند او الفاتورة " name="finance">
+            </div>
+            <div class="column is-one-third">
+                date: <input class="input" type="date" name="date">
+            </div>
+            <div class="column is-one-third">
+                
+            </div>
+        </div>
+
+
+        <table class="table is-fullwidth is-bordered is-hoverable is-striped">
+            <tbody>
+                <thead>
+                    <tr>
+                        <th>الصنف / البند</th>
+                        <th>الوحدة</th>
+                        <th>الكمية</th>
+                        <th>السعر</th>
+                        <th>ملاحظات</th>
+                        <th>AMOUNT$</th>
+                        <th>ADD</th>
+                    </tr>
+                    
+                   
+                    <tr>
+                        <td><div class="select">
+                            <select name="producti">
+                                <option selected disabled="true">اختيار الاصناف</option>
+                                {% for item in product %}
+                              <option value="{{item.id}}">{{item.name}}</option>
+                              {% endfor %}
+                            </select>
+                          </div></td>
+                        <td><div class="select">
+                            <select name="uniti">
+                                <option selected disabled="true">اختيار الوحدة</option>
+                                {% for item in unit %}
+                              <option value="{{item.id}}">{{item.name}}</option>
+                              {% endfor %}
+                            </select>
+                          </div></td>
+                        <td><input class="input" type="text" name="quantity" value='0'></td>
+                        <td><input class="input" type="text" name="price" value='0'></td>
+                        <td><input class="input" type="text" name="notei"></td>
+                        <td class="amount"></td>
+                        <td>
+                            <div class="input-group-append">
+                                <button
+                                    class="button is-small btn btn-success add-form-row">+</button>&nbsp;
+                                <!-- <button class="button is-small btn btn-warning remove-form-row">-</button> -->
+                                
+                            </div>
+                        </td>
+                    </tr>
+                    
+                </thead>
+            </tbody>
+
+        </table>
+        <h1>{{unitgroup.unit}}ddgh</h1>
+        {% for itme in product %}
+        <h1>{{itme.name}}</h1>
+        <h1>{{itme.unit}}</h1>
+        {% endfor %}
+        
+
+
+        <div class="row spacer">
+            <div class="col-4 offset-2">
+                <button type="submit" class="button btn btn-block is-info is-half">Create</button>
+            </div>
+        </div>
+        <br>
+        <div class="columns">
+            <div class="column">
+                <h3 class="title is-4" name="">Total($): <span id="total"></span></h3>
+            </div>
+        </div>
+    </form>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,236 @@
+{% extends "billing/base.html" %}
+{% load static %}
+{% block title %}
+<title>Order Complete - POS System</title>
+<link rel="stylesheet" href="{% static 'css/pdf.css' %}" >
+{% endblock %}
+
+{% block content %}
+    <div id='pdf1'>
+   
+    
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
+            <header>
+              <div class="container">
+                <div class="row">
+                  <div class="col tc">
+                    {% if project.logo %}
+                    <img class="avatar img-thumbnail float-left img-fluid" src="{{project.logo.url}}" style="width: 200px; margin-right: 1em;"/>
+                  {% else %}
+                    <img class="avatar img-thumbnail float-left img-fluid" src="" style="width: 200px; margin-right: 1em;"/>
+                  {% endif %}
+                  </div>
+                    <div class="col tr">
+                       
+                  
+                      
+                      <h6 class="st-italic">
+                            {{project.name_ar}}
+                        <br>
+                            {{project.note_ar}}
+                        <br>
+                            {{project.address_ar}}
+                            
+                        </h6>
+                   
+                   
+                  </div>
+                </div>
+              </div>
+            </header>
+            <hr>
+            <div class="tn">
+              <p>فاتورة {{order.type}}</p>
+            </div>
+            <div class="id">
+              <h6 class="fw-bold" id="idbarcode" > رقم فاتورة: {{order.id}}</h6>
+                <svg id="barcode" jsbarcode-value="{{order.id}}"></svg>
+            </div>
+            <div class="barcode">
+              <i class="fas fa-barcode"></i>
+            </div>
+            <div class="row">
+              <div class="col acc">
+              <p class="en">المطلوب من  : {{order.debitor}} </p>
+              </div>
+              <div class="col">
+                <p class="en">المحترم </p>
+              </div>
+    
+            </div>
+            <div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">الصنف</th>
+                    <th scope="col">الوحدة</th>
+                    <th scope="col">الكمية</th>
+                    <th scope="col">السعر</th>
+                  </tr>
+                </thead>
+              <tbody>
+                {% for item in orderItem %}
+                <tr>
+                  <td>{{item.product}}</td>
+                  <td>{{item.unit}}</td>
+                  <td>{{item.quantity}}</td>
+                  <td>{{item.price}}</td>
+                  <td></td>
+                  
+                </tr>
+                {% endfor %}
+                <tr>
+                  <td colspan="6">{{order.total_price}}</td>
+                </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="container">
+                  <div class="row">
+                      <div class="col fr">
+                        <h5>
+                        المستلم
+                        </h5>
+                      </div>
+                      <div class="col fc">
+                      <h5>
+                        المبيعات
+                        </h5>
+                    </div>
+                    <div class="col fl">
+                    <h5>
+                        المحاسب
+                        </h5>
+                    </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-6">
+            <header>
+              <div class="container">
+                <div class="row">
+                
+                <div class="col tc">
+                  {% if project.logo %}
+                  <img class="avatar img-thumbnail float-left img-fluid" src="{{project.logo.url}}" style="width: 200px; margin-right: 1em;"/>
+                {% else %}
+                  <img class="avatar img-thumbnail float-left img-fluid" src="" style="width: 200px; margin-right: 1em;"/>
+                {% endif %}
+                </div>
+                  <div class="col tr">
+                     
+                
+                    
+                    <h6 class="st-italic">
+                          {{project.name_ar}}
+                      <br>
+                          {{project.note_ar}}
+                      <br>
+                          {{project.address_ar}}
+                          
+                      </h6>
+                 
+                 
+                </div>
+              </div>
+            </header>
+            <hr>
+            <div class="tn">
+              <center>
+              <p>امر صرف مخزني</p>
+            </div>
+            <div class="id">
+              <h6 class="fw-bold" id="idbarcode" > رقم فاتورة: {{order.id}}</h6>
+                <svg id="barcode" jsbarcode-value="{{order.id}}"></svg>
+            </div>
+            <div class="row">
+              <div class="col acc">
+                يصرف الى  {{order.debitor}} 
+                
+
+              </div>
+              <div class="col">
+                <p class="en">المحترم </p>
+              </div>
+    
+            </div>
+            <div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">الصنف</th>
+                    <th scope="col">الوحدة</th>
+                    <th scope="col">الكمية</th>
+                    <th scope="col">السعر</th>
+                  </tr>
+                </thead>
+              <tbody>
+                {% for item in orderItem %}
+                <tr>
+                    
+                  
+                  <td>{{item.product}}</td>
+                  <td>{{item.unit}}</td>
+                  <td>{{item.quantity}}</td>
+                  <td>{{item.price}}</td>
+                  <td></td>
+                  
+                </tr>
+                {% endfor %}
+                <tr>
+                  <td colspan="6">{{order.total_price}}</td>
+                </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="container">
+                  <div class="row">
+                      <div class="col fr">
+                        <h5>
+                        المستلم
+                        </h5>
+                      </div>
+                      <div class="col fc">
+                      <h5>
+                        المخازن
+                        </h5>
+                    </div>
+                    <div class="col fl">
+                    <h5>
+                        المحاسب
+                        </h5>
+                    </div>
+                  </div>
+              
+          
+        </div>
+          
+          
+        </div>
+      </div>
+     
+     
+        
+      </div>
+      
+  </div>
+  <button type="button" class="btn btn-danger" onclick="generatePDF()">طباعة</button>
+  <script src="{% static 'js/scriptpdf.js' %}"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+  <script src="{% static 'js/JsBarcode.all.min.js' %}"></script>
+  <script>
+
+    JsBarcode("#barcode", "#idbarcode", {
+      
+      width: 2,
+      height: 20,
+      displayValue: false
+      
+    }).init();
+  </script>
+  
+  {% endblock %}

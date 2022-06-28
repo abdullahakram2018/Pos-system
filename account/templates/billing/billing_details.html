@@ -1,0 +1,90 @@
+{% extends "billing/base.html" %}
+
+{% block title %}
+<title> {{customer.name}} - Billing </title>
+{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          {% if customer.photo %}
+            <img class="avatar img-thumbnail float-left img-fluid" src="{{ customer.photo.url }}" style="width: 200px; margin-right: 1em;"/>
+          {% else %}
+            <img class="avatar img-thumbnail float-left img-fluid" src="{% static 'img/profile_placeholder_large.png' %}" style="width: 200px; margin-right: 1em;"/>
+          {% endif %}
+          
+          <h5>{{ customer.name }}</h5>
+          <h5>رقم العميل: {{ customer.id }}</h5>
+          <h5>الرصيد: {{ customer.balance }}</h5>
+        </div>
+      </div>
+  
+      <div class="card">
+        <div class="card-header">
+          <h5>المنتجات المتاحة: <small>انقر فوق المنتجات للاختيار </small></h5>
+        </div>
+        <div class="card-body">
+          {% for product in products %}
+            <a href="#" onclick="addItem({{ product.id }}, '{{ product.name }}', {{ product.price }},{{1}}  ,'{{ product.unit }}' )" class="btn btn-outline-dark">
+              {{ product.name }}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title"><strong>تفاصيل الفاتورة</strong></h4>
+                </div>
+                <div class="panel-body">
+                  <div class="table-responsive">
+                    <table class="table table-condensed">
+                      <thead>
+                        <tr>
+                            
+                          <td><h5><strong>الصنف</strong></h5></td>
+                          <td class="text-right"><h5><strong>الوحدة</strong></h5></td>
+                          <td class="text-right"><h5><strong>الكمية</strong></h5></td>
+                          <td class="text-right"><h5><strong>السعر</strong></h5></td>
+                          <td class="text-right"><h5><strong>الاجمالي</strong></h5></td>
+                        </tr>
+                      </thead>
+                      <tbody id="summary-table-body">
+                        <tr id="total-tr">
+                          <td class="thick-line text-right"><h5><strong>الاجمالي: </strong></h5></td>
+                          <td class="thick-line text-right"><strong>0 </strong></td></tr>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-group special" role="group">
+            {% csrf_token %}
+            <button type="button" class="btn btn-success" onclick="postOrder('{% url 'order' %}', '{{ customer.id }}')">بيع</button>
+            <button type="button" class="btn btn-warning" onclick="clearAllItems()">مسح</button>
+            <button type="button" class="btn btn-danger" onclick="location.href='{% url 'billing' %}'">الغاء</button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'js/script.js' %}"></script>
+
+
+{% endblock %}
